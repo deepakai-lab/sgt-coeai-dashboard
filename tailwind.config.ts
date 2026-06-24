@@ -22,12 +22,8 @@ const config: Config = {
       },
       borderRadius: { lg: 'var(--radius)', md: 'calc(var(--radius) - 2px)', sm: 'calc(var(--radius) - 4px)' },
       fontFamily: {
-        sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui']
-      },
-      boxShadow: {
-        'glow-sm': '0 0 0 1px hsl(var(--primary) / 0.1), 0 1px 2px hsl(var(--primary) / 0.05)',
-        'glow': '0 0 0 1px hsl(var(--primary) / 0.15), 0 8px 24px -8px hsl(var(--primary) / 0.25)',
-        'glow-lg': '0 10px 50px -10px hsl(var(--primary) / 0.4)'
+        sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
       }
     }
   },

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
-import { ArrowLeft, Calendar, Building2, Activity } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 
 export const dynamic = 'force-dynamic'
@@ -18,24 +18,25 @@ export default async function PublicProjectDetail({ params }: { params: { slug: 
 
   return (
     <>
-      <section className="relative overflow-hidden border-b">
-        <div className="absolute inset-0 mesh-bg opacity-50" />
-        <div className="container relative mx-auto px-4 py-16 max-w-4xl">
-          <Link href="/projects" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-8 group">
+      <section className="relative border-b border-border">
+        <div className="absolute inset-0 line-grid opacity-50" />
+        <div className="container relative mx-auto px-4 pt-16 pb-20 max-w-4xl">
+          <Link href="/projects" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-12 group">
             <ArrowLeft className="h-3.5 w-3.5 group-hover:-translate-x-0.5 transition-transform" /> All projects
           </Link>
-          <div className="flex flex-wrap gap-2 mb-5">
-            <span className="px-2.5 py-1 rounded-md bg-accent text-accent-foreground text-xs font-medium">{project.project_type}</span>
-            <span className="px-2.5 py-1 rounded-md border text-xs font-medium inline-flex items-center gap-1.5">
-              <span className={`status-dot ${project.status === 'Live' ? 'bg-emerald-500 animate-pulse' : project.status === 'In Progress' ? 'bg-amber-500' : 'bg-muted-foreground'}`} />
+          <div className="flex items-center gap-4 text-xs mb-6">
+            <span className="font-mono uppercase tracking-wider text-muted-foreground">{project.project_type}</span>
+            <span className="text-border">·</span>
+            <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+              <span className={`dot ${project.status === 'Live' ? 'dot-live' : project.status === 'In Progress' ? 'dot-progress' : 'dot-info'}`} />
               {project.status}
             </span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-semibold tracking-tighter leading-[1.05]">
+          <h1 className="text-4xl md:text-6xl font-medium tracking-tighter leading-[1.02]">
             {project.title}
           </h1>
           {project.public_impact_statement && (
-            <p className="mt-6 text-xl text-muted-foreground max-w-3xl leading-relaxed">
+            <p className="mt-8 text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">
               {project.public_impact_statement}
             </p>
           )}
@@ -43,24 +44,22 @@ export default async function PublicProjectDetail({ params }: { params: { slug: 
       </section>
 
       <section className="container mx-auto px-4 py-16 max-w-4xl">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
             {project.public_description ? (
-              <article className="prose prose-neutral max-w-none">
-                <p className="whitespace-pre-wrap text-base leading-relaxed">{project.public_description}</p>
-              </article>
+              <p className="whitespace-pre-wrap text-base leading-relaxed text-foreground/90">{project.public_description}</p>
             ) : (
               <p className="text-muted-foreground italic">More details coming soon.</p>
             )}
           </div>
-          <aside className="space-y-4">
-            <div className="rounded-2xl border bg-card p-5 space-y-3">
-              <div className="text-xs uppercase tracking-widest text-muted-foreground font-medium">Details</div>
-              <Row icon={Activity} label="Status">{project.status}</Row>
-              <Row icon={Building2} label="Type">{project.project_type}</Row>
-              {project.department && <Row icon={Building2} label="Department">{project.department}</Row>}
-              {project.target_date && <Row icon={Calendar} label="Target">{formatDate(project.target_date)}</Row>}
-              <Row icon={Calendar} label="Updated">{formatDate(project.updated_at)}</Row>
+          <aside className="space-y-6 text-sm">
+            <div>
+              <div className="eyebrow mb-3">Details</div>
+              <Row label="Status">{project.status}</Row>
+              <Row label="Type">{project.project_type}</Row>
+              {project.department && <Row label="Department">{project.department}</Row>}
+              {project.target_date && <Row label="Target" mono>{formatDate(project.target_date)}</Row>}
+              <Row label="Updated" mono>{formatDate(project.updated_at)}</Row>
             </div>
           </aside>
         </div>
@@ -69,14 +68,11 @@ export default async function PublicProjectDetail({ params }: { params: { slug: 
   )
 }
 
-function Row({ icon: Icon, label, children }: { icon: any; label: string; children: React.ReactNode }) {
+function Row({ label, children, mono }: { label: string; children: React.ReactNode; mono?: boolean }) {
   return (
-    <div className="flex items-start gap-2.5 text-sm">
-      <Icon className="h-4 w-4 text-muted-foreground mt-0.5 shrink-0" />
-      <div className="flex-1 min-w-0">
-        <div className="text-xs text-muted-foreground">{label}</div>
-        <div className="font-medium">{children}</div>
-      </div>
+    <div className="flex justify-between items-center py-2.5 border-b border-border last:border-b-0">
+      <span className="text-xs text-muted-foreground uppercase tracking-wider font-mono">{label}</span>
+      <span className={`text-sm ${mono ? 'font-mono' : ''}`}>{children}</span>
     </div>
   )
 }

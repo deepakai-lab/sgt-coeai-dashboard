@@ -9,39 +9,40 @@ export default async function TeamPage() {
 
   return (
     <>
-      <section className="relative overflow-hidden border-b">
-        <div className="absolute inset-0 mesh-bg opacity-50" />
-        <div className="container relative mx-auto px-4 py-20">
-          <div className="text-xs uppercase tracking-widest text-primary font-medium mb-4">Team</div>
-          <h1 className="text-4xl md:text-6xl font-semibold tracking-tighter leading-[1.05] max-w-3xl">
-            The people <span className="brand-text">behind the CoE AI.</span>
+      <section className="relative border-b border-border">
+        <div className="absolute inset-0 line-grid opacity-50" />
+        <div className="container relative mx-auto px-4 pt-24 pb-20">
+          <div className="eyebrow mb-6">Team</div>
+          <h1 className="text-4xl md:text-6xl font-medium tracking-tighter leading-[1.02] max-w-3xl">
+            The people<br />
+            <span className="text-muted-foreground">behind the work.</span>
           </h1>
-          <p className="mt-6 text-lg text-muted-foreground max-w-2xl">
+          <p className="mt-10 text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed">
             A small team, hands-on across every initiative.
           </p>
         </div>
       </section>
 
-      <section className="container mx-auto px-4 py-16 max-w-5xl">
+      <section className="container mx-auto px-4 py-16 max-w-6xl">
         {(!members || members.length === 0) ? (
-          <div className="rounded-2xl border border-dashed bg-card p-16 text-center max-w-2xl mx-auto">
+          <div className="border border-dashed border-border p-16 text-center max-w-2xl mx-auto">
             <p className="text-muted-foreground">Team profiles will appear here soon.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-border">
             {members.map((m: any) => {
               const initials = (m.full_name || '').split(' ').map((p: string) => p[0]).slice(0, 2).join('').toUpperCase()
               return (
-                <div key={m.id} className="rounded-2xl border bg-card p-6 card-hover">
-                  <Avatar className="h-16 w-16 mb-4 ring-2 ring-primary/10">
+                <div key={m.id} className="border-r border-b border-border p-8 bg-card/30">
+                  <Avatar className="h-14 w-14 mb-5 border border-border">
                     {m.public_photo_url && <AvatarImage src={m.public_photo_url} alt={m.full_name} />}
-                    <AvatarFallback className="brand-bg text-white font-semibold">{initials}</AvatarFallback>
+                    <AvatarFallback className="bg-secondary text-foreground font-mono text-sm">{initials}</AvatarFallback>
                   </Avatar>
-                  <h3 className="font-semibold tracking-tight">{m.full_name}</h3>
-                  <p className="text-xs text-muted-foreground mt-0.5">
+                  <h3 className="text-base font-medium tracking-tight">{m.full_name}</h3>
+                  <p className="text-xs text-muted-foreground mt-1.5">
                     {m.designation || 'Member'}{m.department && ` · ${m.department}`}
                   </p>
-                  {m.public_bio && <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{m.public_bio}</p>}
+                  {m.public_bio && <p className="text-sm text-muted-foreground mt-4 leading-relaxed">{m.public_bio}</p>}
                 </div>
               )
             })}

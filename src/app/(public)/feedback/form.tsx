@@ -19,9 +19,14 @@ export function FeedbackForm() {
 
   if (state.status === 'ok') {
     return (
-      <div className="rounded-md border border-emerald-200 bg-emerald-50 p-6 text-emerald-900">
-        <p className="font-medium">Thank you — your feedback has been received.</p>
-        <p className="text-sm mt-2 opacity-90">We&apos;ll get back to you if a response is needed.</p>
+      <div className="text-center py-8">
+        <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border mb-5">
+          <span className="dot dot-live" />
+        </div>
+        <p className="font-medium tracking-tight">Received.</p>
+        <p className="text-sm text-muted-foreground mt-2 max-w-sm mx-auto leading-relaxed">
+          Thank you. We&apos;ll get back to you if a response is needed.
+        </p>
       </div>
     )
   }
