@@ -30,35 +30,35 @@ function LoginCard() {
   }
 
   return (
-    <div className="w-full max-w-sm">
+    <div className="w-full max-w-md">
       <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground mb-12 group">
-        <ArrowLeft className="h-3 w-3 group-hover:-translate-x-0.5 transition-transform" /> Back
+        <ArrowLeft className="h-3 w-3 group-hover:-translate-x-0.5 transition-transform" /> Back to public site
       </Link>
 
-      <div className="flex items-center gap-2.5 mb-10">
-        <span className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border bg-card">
-          <span className="font-mono text-xs font-medium tracking-tighter">CoE</span>
+      <div className="flex items-center gap-3 mb-12">
+        <span className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-primary text-primary-foreground">
+          <span className="display text-lg">C</span>
         </span>
-        <div className="leading-none">
+        <div className="leading-tight">
           <div className="text-sm font-medium tracking-tight">Centre of Excellence for AI</div>
-          <div className="text-[10px] text-muted-foreground mt-1 font-mono uppercase tracking-wider">SGT University</div>
+          <div className="text-[10px] text-muted-foreground mt-1 num uppercase tracking-wider">SGT University</div>
         </div>
       </div>
 
-      <h1 className="text-2xl font-medium tracking-tighter">
-        {IS_DEMO ? 'Preview the dashboard' : 'Sign in'}
+      <h1 className="display text-3xl md:text-4xl text-foreground leading-tight">
+        {IS_DEMO ? <>Preview the <em>dashboard.</em></> : <>Sign in to <em>continue.</em></>}
       </h1>
-      <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+      <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
         {IS_DEMO ? (
           <>You&apos;re viewing the CoE AI Command Center in preview mode. Sample data, no writes persisted.</>
         ) : (
-          <>Access restricted to <span className="font-mono text-foreground">@{ALLOWED_DOMAIN}</span> Google accounts.</>
+          <>Access restricted to <span className="num text-foreground">@{ALLOWED_DOMAIN}</span> Google accounts.</>
         )}
       </p>
 
       {error === 'domain' && (
         <div className="mt-6 border-l-2 border-destructive pl-3 py-1 text-sm text-destructive">
-          That Google account isn&apos;t a <span className="font-mono">@{ALLOWED_DOMAIN}</span> address.
+          That Google account isn&apos;t a <span className="num">@{ALLOWED_DOMAIN}</span> address.
         </div>
       )}
       {error === 'oauth' && (
@@ -67,7 +67,7 @@ function LoginCard() {
         </div>
       )}
 
-      <Button onClick={signIn} disabled={busy} className="w-full mt-8" size="lg">
+      <Button onClick={signIn} disabled={busy} className="w-full mt-10" size="lg">
         {busy ? 'Loading…' : IS_DEMO ? (
           <>Enter dashboard <ArrowRight className="h-4 w-4" /></>
         ) : (
@@ -78,7 +78,7 @@ function LoginCard() {
       <div className="hairline my-10" />
 
       <p className="text-xs text-muted-foreground text-center">
-        Not staff? Browse the <Link href="/" className="text-foreground hover:underline">public site</Link>.
+        Not staff? Browse the <Link href="/" className="text-primary hover:underline">public site</Link>.
       </p>
     </div>
   )
@@ -87,17 +87,20 @@ function LoginCard() {
 function GoogleIcon() {
   return (
     <svg className="h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
-      <path fill="#fff" d="M21.8 10.5H12v3.9h5.6c-.5 2.5-2.5 3.6-5.6 3.6-3.4 0-6.1-2.7-6.1-6.1S8.6 5.8 12 5.8c1.5 0 2.8.5 3.8 1.4l2.9-2.9C16.9 2.7 14.6 1.8 12 1.8 6.4 1.8 1.8 6.4 1.8 12s4.6 10.2 10.2 10.2c5.1 0 9.7-3.7 9.7-10.2 0-.6-.1-1.1-.1-1.5z" opacity=".95"/>
+      <path fill="#FFC107" d="M21.8 12.2c0-.6-.1-1.3-.2-1.9H12v3.7h5.5c-.2 1.2-1 2.3-2 3v2.5h3.3c1.9-1.8 3-4.4 3-7.3z"/>
+      <path fill="#34A853" d="M12 22c2.7 0 5-.9 6.7-2.4l-3.3-2.5c-.9.6-2.1 1-3.5 1-2.7 0-4.9-1.8-5.7-4.2H2.9v2.6C4.6 19.9 8 22 12 22z"/>
+      <path fill="#FBBC05" d="M6.3 13.9c-.2-.6-.3-1.2-.3-1.9s.1-1.3.3-1.9V7.5H2.9C2.3 8.9 2 10.4 2 12s.3 3.1.9 4.5l3.4-2.6z"/>
+      <path fill="#EA4335" d="M12 5.8c1.5 0 2.9.5 3.9 1.5l2.9-2.9C17 2.9 14.7 2 12 2 8 2 4.6 4.1 2.9 7.5l3.4 2.6C7.1 7.6 9.3 5.8 12 5.8z"/>
     </svg>
   )
 }
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 relative">
-      <div className="absolute inset-0 line-grid opacity-50" />
+    <div className="min-h-screen flex items-center justify-center px-4 relative bg-background">
+      <div className="absolute inset-0 line-grid opacity-40" />
       <div className="relative">
-        <Suspense fallback={<div className="w-full max-w-sm">Loading…</div>}>
+        <Suspense fallback={<div className="w-full max-w-md">Loading…</div>}>
           <LoginCard />
         </Suspense>
       </div>

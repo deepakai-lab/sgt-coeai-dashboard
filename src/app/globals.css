@@ -2,131 +2,137 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  /* Dark by default. Warm-tinted near-black background, off-white text. */
-  :root {
-    --background: 0 0% 4.5%;             /* near-black, warm */
-    --foreground: 0 0% 96%;
-    --card: 0 0% 6.5%;
-    --card-foreground: 0 0% 96%;
-    --popover: 0 0% 8%;
-    --popover-foreground: 0 0% 96%;
-    --primary: 0 0% 96%;                 /* white-on-dark for primary actions */
-    --primary-foreground: 0 0% 8%;
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 96%;
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 58%;
-    --accent: 0 0% 13%;
-    --accent-foreground: 0 0% 96%;
-    --destructive: 0 60% 45%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14%;
-    --input: 0 0% 14%;
-    --ring: 0 0% 60%;
-    --radius: 0.5rem;
+/*
+ * Editorial light theme — warm cream background, deep slate text,
+ * one confident indigo accent. Inspired by Anthropic, OpenAI research,
+ * and academic-institutional publications.
+ */
 
-    /* Single subtle accent — desaturated steel, used very sparingly */
-    --accent-blue: 210 22% 62%;
-  }
-  /* Light mode kept as escape hatch but app forces dark via <html class="dark"> */
-  .light {
-    --background: 0 0% 99%;
-    --foreground: 0 0% 8%;
+@layer base {
+  :root {
+    /* Warm cream base */
+    --background: 36 33% 97.5%;
+    --foreground: 222 28% 14%;
+
+    /* Surfaces */
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 8%;
+    --card-foreground: 222 28% 14%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 8%;
-    --primary: 0 0% 8%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 8%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 42%;
-    --accent: 0 0% 95%;
-    --accent-foreground: 0 0% 8%;
-    --destructive: 0 70% 50%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 0 0% 30%;
+    --popover-foreground: 222 28% 14%;
+
+    /* The single accent — deep refined indigo */
+    --primary: 244 38% 32%;
+    --primary-foreground: 36 33% 98%;
+
+    /* Neutrals */
+    --secondary: 36 18% 93%;
+    --secondary-foreground: 222 28% 14%;
+    --muted: 36 18% 94%;
+    --muted-foreground: 222 12% 42%;
+    --accent: 244 38% 96%;
+    --accent-foreground: 244 38% 32%;
+
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Hairlines */
+    --border: 30 15% 88%;
+    --input: 30 15% 86%;
+    --ring: 244 38% 45%;
+
+    --radius: 0.5rem;
   }
+
   * { @apply border-border; }
+
   html {
-    font-feature-settings: "cv11", "ss01", "ss03";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color-scheme: dark;
+    color-scheme: light;
+    text-rendering: optimizeLegibility;
   }
+
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-sans, ui-sans-serif, system-ui);
     font-feature-settings: "cv11", "ss01";
   }
-  h1, h2, h3, h4 {
-    font-feature-settings: "ss01", "ss03", "cv11";
-    letter-spacing: -0.035em;
-    font-weight: 500;
+
+  /* Serif display family for editorial headings */
+  .display {
+    font-family: var(--font-serif, ui-serif, Georgia, serif);
+    font-feature-settings: "ss01", "ss02";
+    letter-spacing: -0.02em;
+    font-weight: 400;
   }
-  /* Tabular figures for data/numbers */
+
+  h1, h2, h3, h4 {
+    letter-spacing: -0.02em;
+  }
+
   .tabular { font-variant-numeric: tabular-nums; }
 }
 
 @layer components {
-  /* Subtle dot-grid background — for hero panels only, never full-bleed */
-  .dot-grid {
-    background-image: radial-gradient(circle, hsl(0 0% 100% / 0.06) 1px, transparent 1px);
-    background-size: 24px 24px;
-    background-position: 0 0;
-  }
-  .line-grid {
-    background-image:
-      linear-gradient(to right, hsl(0 0% 100% / 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(0 0% 100% / 0.04) 1px, transparent 1px);
-    background-size: 64px 64px;
-  }
-  /* Hairline divider with fade */
-  .hairline {
-    height: 1px;
-    background: linear-gradient(to right, transparent, hsl(0 0% 100% / 0.15), transparent);
-  }
-  /* Status dot — flat circle, no glow */
-  .dot {
-    @apply inline-block h-1.5 w-1.5 rounded-full shrink-0;
-  }
-  .dot-live { background: hsl(140 45% 55%); }
-  .dot-progress { background: hsl(35 70% 60%); }
-  .dot-pending { background: hsl(0 0% 55%); }
-  .dot-blocked { background: hsl(0 60% 60%); }
-  .dot-done { background: hsl(140 45% 55%); }
-  .dot-info { background: hsl(var(--accent-blue)); }
-  .dot-muted { background: hsl(0 0% 35%); }
-
-  /* Card with subtle border + faint hover */
-  .panel {
-    @apply rounded-lg border bg-card;
-  }
-  .panel-hover {
-    @apply transition-colors duration-150 hover:border-foreground/20;
+  /* Editorial eyebrow — small uppercase label */
+  .eyebrow {
+    @apply text-[11px] uppercase tracking-[0.14em] font-medium text-muted-foreground;
+    font-family: var(--font-mono, ui-monospace, monospace);
   }
 
-  /* Mono numerals for stat counters / IDs / dates */
+  /* Mono utility for data / IDs / dates */
   .num {
     font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
     font-variant-numeric: tabular-nums;
-    letter-spacing: -0.02em;
   }
 
-  /* Eyebrow label */
-  .eyebrow {
-    @apply text-[11px] uppercase tracking-[0.14em] font-medium text-muted-foreground;
+  /* Subtle warm hairline divider */
+  .hairline {
+    height: 1px;
+    background: linear-gradient(to right, transparent, hsl(var(--border)) 20%, hsl(var(--border)) 80%, transparent);
+  }
+
+  /* Faint editorial line-grid for hero panels */
+  .line-grid {
+    background-image:
+      linear-gradient(to right, hsl(var(--border) / 0.5) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border) / 0.5) 1px, transparent 1px);
+    background-size: 96px 96px;
+  }
+
+  /* Status dots */
+  .dot {
+    @apply inline-block h-1.5 w-1.5 rounded-full shrink-0;
+  }
+  .dot-live     { background: hsl(150 50% 36%); }
+  .dot-progress { background: hsl(32 80% 48%); }
+  .dot-pending  { background: hsl(222 10% 60%); }
+  .dot-blocked  { background: hsl(2 65% 50%); }
+  .dot-done     { background: hsl(150 50% 36%); }
+  .dot-info     { background: hsl(244 38% 50%); }
+  .dot-muted    { background: hsl(222 8% 70%); }
+
+  /* Panel — card with subtle warm shadow + hairline border */
+  .panel {
+    @apply rounded-lg border bg-card;
+    box-shadow: 0 1px 0 0 hsl(36 30% 90% / 0.6);
+  }
+  .panel-hover {
+    @apply transition-all duration-200 hover:border-foreground/20;
+  }
+
+  /* Editorial section number (§ 01) */
+  .section-mark {
+    @apply inline-flex items-center gap-2 text-xs text-muted-foreground;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    letter-spacing: 0.05em;
   }
 }
 
 @layer utilities {
-  /* Vertical fade for hero edges */
   .fade-b {
-    mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
   }
+  .text-balance { text-wrap: balance; }
 }

@@ -5,13 +5,13 @@ import { ArrowRight } from 'lucide-react'
 export default function InitiativesPage() {
   return (
     <>
-      <section className="relative border-b border-border">
-        <div className="absolute inset-0 line-grid opacity-50" />
+      <section className="relative border-b border-border overflow-hidden">
+        <div className="absolute inset-0 line-grid opacity-40" />
         <div className="container relative mx-auto px-4 pt-24 pb-20">
-          <div className="eyebrow mb-6">Work streams</div>
-          <h1 className="text-4xl md:text-6xl font-medium tracking-tighter leading-[1.02] max-w-3xl">
+          <div className="section-mark mb-6"><span>§</span><span>Work streams</span></div>
+          <h1 className="display text-4xl md:text-6xl leading-[1.05] text-balance max-w-4xl">
             Six fronts.<br />
-            <span className="text-muted-foreground">One coordinated push.</span>
+            <em>One coordinated push.</em>
           </h1>
           <p className="mt-10 text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed">
             How CoE AI work is organised across the university.
@@ -22,17 +22,17 @@ export default function InitiativesPage() {
       <section className="container mx-auto px-4 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 border-t border-l border-border max-w-6xl">
           {INITIATIVES.map((i, idx) => (
-            <div key={i.slug} className="border-r border-b border-border p-10 bg-card/30 group hover:bg-card transition-colors">
+            <div key={i.slug} className="border-r border-b border-border p-10 bg-card group hover:bg-accent/30 transition-colors">
               <div className="flex items-baseline justify-between mb-6">
-                <span className="font-mono text-xs text-muted-foreground tracking-wider">
+                <span className="num text-xs text-muted-foreground tracking-wider">
                   Initiative {String(idx + 1).padStart(2, '0')}
                 </span>
-                <span className="dot dot-info opacity-60 group-hover:opacity-100 transition-opacity" />
+                <span className="dot dot-muted group-hover:dot-info transition-colors" />
               </div>
-              <h3 className="text-2xl font-medium tracking-tighter">{i.title}</h3>
+              <h3 className="display text-2xl md:text-3xl text-foreground">{i.title}</h3>
               <p className="text-sm text-muted-foreground mt-4 leading-relaxed">{i.description}</p>
-              <Link href="/projects" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mt-6 group/link">
-                Related projects <ArrowRight className="h-3.5 w-3.5 group-hover/link:translate-x-0.5 transition-transform" />
+              <Link href="/projects" className="inline-flex items-center gap-1.5 text-sm text-primary mt-6 hover:gap-2 transition-all">
+                Related projects <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
           ))}

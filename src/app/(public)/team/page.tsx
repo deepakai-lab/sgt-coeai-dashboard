@@ -9,13 +9,13 @@ export default async function TeamPage() {
 
   return (
     <>
-      <section className="relative border-b border-border">
-        <div className="absolute inset-0 line-grid opacity-50" />
+      <section className="relative border-b border-border overflow-hidden">
+        <div className="absolute inset-0 line-grid opacity-40" />
         <div className="container relative mx-auto px-4 pt-24 pb-20">
-          <div className="eyebrow mb-6">Team</div>
-          <h1 className="text-4xl md:text-6xl font-medium tracking-tighter leading-[1.02] max-w-3xl">
+          <div className="section-mark mb-6"><span>§</span><span>Team</span></div>
+          <h1 className="display text-4xl md:text-6xl leading-[1.05] text-balance max-w-4xl">
             The people<br />
-            <span className="text-muted-foreground">behind the work.</span>
+            <em>behind the work.</em>
           </h1>
           <p className="mt-10 text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed">
             A small team, hands-on across every initiative.
@@ -25,7 +25,7 @@ export default async function TeamPage() {
 
       <section className="container mx-auto px-4 py-16 max-w-6xl">
         {(!members || members.length === 0) ? (
-          <div className="border border-dashed border-border p-16 text-center max-w-2xl mx-auto">
+          <div className="border border-dashed border-border p-16 text-center max-w-2xl mx-auto bg-card">
             <p className="text-muted-foreground">Team profiles will appear here soon.</p>
           </div>
         ) : (
@@ -33,13 +33,13 @@ export default async function TeamPage() {
             {members.map((m: any) => {
               const initials = (m.full_name || '').split(' ').map((p: string) => p[0]).slice(0, 2).join('').toUpperCase()
               return (
-                <div key={m.id} className="border-r border-b border-border p-8 bg-card/30">
-                  <Avatar className="h-14 w-14 mb-5 border border-border">
+                <div key={m.id} className="border-r border-b border-border p-8 bg-card">
+                  <Avatar className="h-16 w-16 mb-6 border border-border">
                     {m.public_photo_url && <AvatarImage src={m.public_photo_url} alt={m.full_name} />}
-                    <AvatarFallback className="bg-secondary text-foreground font-mono text-sm">{initials}</AvatarFallback>
+                    <AvatarFallback className="bg-accent text-accent-foreground display text-base">{initials}</AvatarFallback>
                   </Avatar>
-                  <h3 className="text-base font-medium tracking-tight">{m.full_name}</h3>
-                  <p className="text-xs text-muted-foreground mt-1.5">
+                  <h3 className="display text-xl text-foreground">{m.full_name}</h3>
+                  <p className="text-xs text-muted-foreground mt-1.5 num">
                     {m.designation || 'Member'}{m.department && ` · ${m.department}`}
                   </p>
                   {m.public_bio && <p className="text-sm text-muted-foreground mt-4 leading-relaxed">{m.public_bio}</p>}

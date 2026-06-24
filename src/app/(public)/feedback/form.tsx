@@ -23,8 +23,8 @@ export function FeedbackForm() {
         <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border mb-5">
           <span className="dot dot-live" />
         </div>
-        <p className="font-medium tracking-tight">Received.</p>
-        <p className="text-sm text-muted-foreground mt-2 max-w-sm mx-auto leading-relaxed">
+        <p className="display text-2xl">Received.</p>
+        <p className="text-sm text-muted-foreground mt-3 max-w-sm mx-auto leading-relaxed">
           Thank you. We&apos;ll get back to you if a response is needed.
         </p>
       </div>
